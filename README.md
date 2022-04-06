@@ -1,8 +1,8 @@
-#ChainCommandBundle
+# ChainCommandBundle
 
 Symfony bundle that implements command chaining functionality.
 
-##Installation
+## Installation
 
 1. Clone repository https://github.com/dimfr/chain-command-bundle.git
 ```
