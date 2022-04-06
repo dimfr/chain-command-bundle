@@ -53,6 +53,10 @@ class ConsoleListener
     {
         $command = $event->getCommand();
 
+        if (!$command instanceof Command) {
+            return ;
+        }
+
         if ($this->chainProvider->isChainMember($command)) {
             $event->stopPropagation();
 

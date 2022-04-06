@@ -3,12 +3,14 @@
 namespace Dimfr\Bundle\ChainCommandBundle\Tests\Unit;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Event\ConsoleEvent;
 
 /**
- * Trait MokeFactoryTrait
+ * Trait MockFactoryTrait
  * @package Dimfr\Bundle\ChainCommandBundle\Tests\Unit
  */
-trait MokeFactoryTrait
+trait MockFactoryTrait
 {
     /**
      * Creates mock object from class name
@@ -29,5 +31,26 @@ trait MokeFactoryTrait
         return $builder->getMock();
     }
 
+
+    /**
+     * Create command class mock
+     *
+     * @param string|null $commandClass
+     * @return MockObject
+     */
+    protected function createCommandMock(string $commandClass = null): MockObject
+    {
+        return $this->createMockObject(Command::class, $commandClass);
+    }
+
+    /**
+     * Create console event class mock
+     *
+     * @return MockObject
+     */
+    protected function createConsoleEventMock(): MockObject
+    {
+        return $this->createMockObject(ConsoleEvent::class);
+    }
 
 }
