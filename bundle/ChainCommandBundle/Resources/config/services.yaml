@@ -1,0 +1,37 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+
+  monolog.formatter.chain_command:
+    class: Monolog\Formatter\LineFormatter
+    arguments:
+      - "[%%datetime%%] %%message%%\n"
+      - "Y-m-d H:i:s"
+
+  Psr\Log\LoggerInterface:
+    class: Monolog\Logger
+
+  Dimfr\Bundle\ChainCommandBundle\Chain\ChainProviderInterface:
+    class: Dimfr\Bundle\ChainCommandBundle\Chain\ChainProvider
+
+  Dimfr\Bundle\ChainCommandBundle\EventListener\ConsoleListener:
+    arguments:
+      $chainProvider: '@Dimfr\Bundle\ChainCommandBundle\Chain\ChainProviderInterface'
+      $logger: '@Psr\Log\LoggerInterface'
+    tags:
+      - { name: 'kernel.event_listener', event: 'console.command' }
+      - { name: 'kernel.event_listener', event: 'console.terminate' }
+      - { name: 'monolog.logger', channel: 'chain_command' }

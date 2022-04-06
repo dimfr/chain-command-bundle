@@ -1,0 +1,14 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+
+  Dimfr\Bundle\BarBundle\Command\HiCommand:
+    tags:
+      - { name: 'console.command' }
+      - { name: 'chain.command', master: 'foo:hello', priority: 1 }
