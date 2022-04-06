@@ -37,11 +37,9 @@ class ChainCommandBundle extends Bundle
         $container->prependExtensionConfig('monolog', [
             'handlers' => [
                 'chain_command' => [
-                    'type' => 'stream',
-                    'verbosity_levels' => ['VERBOSITY_NORMAL' => 'NOTICE'],
-                    'channels' => ['chain_command'],
-                    'process_psr_3_messages' => true,
-                    'formatter' => 'monolog.formatter.chain_command'
+                    'type'      => 'stream',
+                    'level'     => 'info',
+                    'formatter' => 'monolog.formatter.chain_command',
                 ]
             ]
         ]);
